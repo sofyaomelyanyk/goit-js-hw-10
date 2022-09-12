@@ -17,11 +17,9 @@ function onInput(e) {
   countryInfo.innerHTML = '';
 
   const valueStr = e.target.value.trim();
-  if (!valueStr) {
-    return;
+  if (valueStr) {
+    fetchCountries(valueStr).then(onSuccessResult).catch(onErrorResult);
   }
-
-  fetchCountries(valueStr).then(onSuccessResult).catch(onErrorResult);
 }
 
 function onSuccessResult(response) {
@@ -30,7 +28,7 @@ function onSuccessResult(response) {
     return;
   }
 
-  if (response.length > 1) {
+  if (response.length >= 2 && response.length <= 10) {
     countryList.insertAdjacentHTML(
       'beforeend',
       createMarkupCountryList(response)
